@@ -1,7 +1,0 @@
-/home/minkyo2/.local/lib/python3.8/site-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
-  warnings.warn(
-  File "/home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages/my_first_package/my_subscriber.py", line 17
-    print("X : " msg.x, ", Y : ", msg.y)
-                 ^
-SyntaxError: invalid syntax
-
