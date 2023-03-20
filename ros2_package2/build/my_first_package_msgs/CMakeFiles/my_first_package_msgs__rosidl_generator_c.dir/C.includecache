@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/minkyo2/ROS2/ros2_package2/build/my_first_package_msgs/rosidl_generator_c/my_first_package_msgs/msg/detail/cmd_and_pose_vel__functions.c
+my_first_package_msgs/msg/detail/cmd_and_pose_vel__functions.h
+/home/minkyo2/ROS2/ros2_package2/build/my_first_package_msgs/rosidl_generator_c/my_first_package_msgs/msg/detail/my_first_package_msgs/msg/detail/cmd_and_pose_vel__functions.h
+assert.h
+-
+stdbool.h
+-
+stdlib.h
+-
+string.h
+-
+
+/opt/ros/galactic/include/rosidl_runtime_c/visibility_control.h
+
+rosidl_generator_c/my_first_package_msgs/msg/detail/cmd_and_pose_vel__functions.h
+stdbool.h
+-
+stdlib.h
+-
+rosidl_runtime_c/visibility_control.h
+rosidl_generator_c/my_first_package_msgs/msg/detail/rosidl_runtime_c/visibility_control.h
+my_first_package_msgs/msg/rosidl_generator_c__visibility_control.h
+rosidl_generator_c/my_first_package_msgs/msg/detail/my_first_package_msgs/msg/rosidl_generator_c__visibility_control.h
+my_first_package_msgs/msg/detail/cmd_and_pose_vel__struct.h
+rosidl_generator_c/my_first_package_msgs/msg/detail/my_first_package_msgs/msg/detail/cmd_and_pose_vel__struct.h
+
+rosidl_generator_c/my_first_package_msgs/msg/detail/cmd_and_pose_vel__struct.h
+stdbool.h
+-
+stddef.h
+-
+stdint.h
+-
+
+rosidl_generator_c/my_first_package_msgs/msg/rosidl_generator_c__visibility_control.h
+

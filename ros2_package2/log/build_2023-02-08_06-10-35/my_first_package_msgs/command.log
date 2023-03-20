@@ -1,0 +1,4 @@
+Invoking command in '/home/minkyo2/ROS2/ros2_package2/build/my_first_package_msgs': /usr/bin/cmake --build /home/minkyo2/ROS2/ros2_package2/build/my_first_package_msgs -- -j2 -l2
+Invoked command in '/home/minkyo2/ROS2/ros2_package2/build/my_first_package_msgs' returned '0': /usr/bin/cmake --build /home/minkyo2/ROS2/ros2_package2/build/my_first_package_msgs -- -j2 -l2
+Invoking command in '/home/minkyo2/ROS2/ros2_package2/build/my_first_package_msgs': /usr/bin/cmake --install /home/minkyo2/ROS2/ros2_package2/build/my_first_package_msgs
+Invoked command in '/home/minkyo2/ROS2/ros2_package2/build/my_first_package_msgs' returned '0': /usr/bin/cmake --install /home/minkyo2/ROS2/ros2_package2/build/my_first_package_msgs

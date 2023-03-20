@@ -1,0 +1,30 @@
+[1.891s] Invoking command in '/home/minkyo2/ROS2/ros2_package2/src/my_first_package': PYTHONPATH=/home/minkyo2/ROS2/ros2_package2/build/my_first_package/prefix_override:/home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/my_first_package build --build-base /home/minkyo2/ROS2/ros2_package2/build/my_first_package/build install --record /home/minkyo2/ROS2/ros2_package2/build/my_first_package/install.log --single-version-externally-managed
+[2.464s] running egg_info
+[2.487s] writing ../../build/my_first_package/my_first_package.egg-info/PKG-INFO
+[2.487s] writing dependency_links to ../../build/my_first_package/my_first_package.egg-info/dependency_links.txt
+[2.488s] writing entry points to ../../build/my_first_package/my_first_package.egg-info/entry_points.txt
+[2.488s] writing requirements to ../../build/my_first_package/my_first_package.egg-info/requires.txt
+[2.489s] writing top-level names to ../../build/my_first_package/my_first_package.egg-info/top_level.txt
+[2.550s] reading manifest file '../../build/my_first_package/my_first_package.egg-info/SOURCES.txt'
+[2.554s] writing manifest file '../../build/my_first_package/my_first_package.egg-info/SOURCES.txt'
+[2.554s] running build
+[2.554s] running build_py
+[2.555s] running install
+[2.556s] /home/minkyo2/.local/lib/python3.8/site-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[2.557s]   warnings.warn(
+[2.570s] running install_lib
+[2.611s] byte-compiling /home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages/my_first_package/my_subscriber.py to my_subscriber.cpython-38.pyc
+[2.612s]   File "/home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages/my_first_package/my_subscriber.py", line 17
+[2.612s]     print("X : " msg.x, ", Y : ", msg.y)
+[2.612s]                  ^
+[2.612s] SyntaxError: invalid syntax
+[2.612s] 
+[2.612s] running install_data
+[2.635s] running install_egg_info
+[2.684s] removing '/home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages/my_first_package-0.0.0-py3.8.egg-info' (and everything under it)
+[2.685s] Copying ../../build/my_first_package/my_first_package.egg-info to /home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages/my_first_package-0.0.0-py3.8.egg-info
+[2.688s] running install_scripts
+[2.846s] Installing my_first_node script to /home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/my_first_package
+[2.847s] Installing my_subscriber script to /home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/my_first_package
+[2.848s] writing list of installed files to '/home/minkyo2/ROS2/ros2_package2/build/my_first_package/install.log'
+[2.901s] Invoked command in '/home/minkyo2/ROS2/ros2_package2/src/my_first_package' returned '0': PYTHONPATH=/home/minkyo2/ROS2/ros2_package2/build/my_first_package/prefix_override:/home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/my_first_package build --build-base /home/minkyo2/ROS2/ros2_package2/build/my_first_package/build install --record /home/minkyo2/ROS2/ros2_package2/build/my_first_package/install.log --single-version-externally-managed

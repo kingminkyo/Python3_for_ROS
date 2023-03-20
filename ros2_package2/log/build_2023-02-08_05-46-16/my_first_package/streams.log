@@ -1,0 +1,25 @@
+[1.815s] Invoking command in '/home/minkyo2/ROS2/ros2_package2/src/my_first_package': PYTHONPATH=/home/minkyo2/ROS2/ros2_package2/build/my_first_package/prefix_override:/home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/my_first_package build --build-base /home/minkyo2/ROS2/ros2_package2/build/my_first_package/build install --record /home/minkyo2/ROS2/ros2_package2/build/my_first_package/install.log --single-version-externally-managed
+[2.366s] running egg_info
+[2.398s] writing ../../build/my_first_package/my_first_package.egg-info/PKG-INFO
+[2.399s] writing dependency_links to ../../build/my_first_package/my_first_package.egg-info/dependency_links.txt
+[2.400s] writing entry points to ../../build/my_first_package/my_first_package.egg-info/entry_points.txt
+[2.401s] writing requirements to ../../build/my_first_package/my_first_package.egg-info/requires.txt
+[2.403s] writing top-level names to ../../build/my_first_package/my_first_package.egg-info/top_level.txt
+[2.472s] reading manifest file '../../build/my_first_package/my_first_package.egg-info/SOURCES.txt'
+[2.475s] writing manifest file '../../build/my_first_package/my_first_package.egg-info/SOURCES.txt'
+[2.476s] running build
+[2.477s] running build_py
+[2.479s] running install
+[2.480s] /home/minkyo2/.local/lib/python3.8/site-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[2.480s]   warnings.warn(
+[2.493s] running install_lib
+[2.534s] running install_data
+[2.555s] running install_egg_info
+[2.600s] removing '/home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages/my_first_package-0.0.0-py3.8.egg-info' (and everything under it)
+[2.601s] Copying ../../build/my_first_package/my_first_package.egg-info to /home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages/my_first_package-0.0.0-py3.8.egg-info
+[2.603s] running install_scripts
+[2.711s] Installing my_first_node script to /home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/my_first_package
+[2.711s] Installing my_publisher script to /home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/my_first_package
+[2.712s] Installing my_subscriber script to /home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/my_first_package
+[2.715s] writing list of installed files to '/home/minkyo2/ROS2/ros2_package2/build/my_first_package/install.log'
+[2.786s] Invoked command in '/home/minkyo2/ROS2/ros2_package2/src/my_first_package' returned '0': PYTHONPATH=/home/minkyo2/ROS2/ros2_package2/build/my_first_package/prefix_override:/home/minkyo2/ROS2/ros2_package2/install/my_first_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/my_first_package build --build-base /home/minkyo2/ROS2/ros2_package2/build/my_first_package/build install --record /home/minkyo2/ROS2/ros2_package2/build/my_first_package/install.log --single-version-externally-managed
