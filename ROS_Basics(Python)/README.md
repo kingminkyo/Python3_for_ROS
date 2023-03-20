@@ -17,7 +17,11 @@
 
 - roscd: 쉘에서 패키지 이름이 있는 위치로 경로 이동
 
-    roscd <package_name> % 패키지로 경로 이동
+
+    
+        roscd <package_name> % 패키지로 경로 이동
+
+
 
 ---
 >2. launch 이란? 
