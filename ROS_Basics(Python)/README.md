@@ -1,7 +1,7 @@
 ## roslaunch <package_name> <launch_file>을 시작으로..
 
 >1. package 파일이란?
-
+---
 - ROS는 프로그램을 구성하기 위해 패키지를 사용하는데, 이 프로그램이 포함하는 모든 파일을 패키지로 간주한다.
 
 
@@ -19,9 +19,9 @@
 
     roscd <package_name> % 패키지로 경로 이동
 
-
+---
 >2. launch 이란? 
-
+---
 - ros launch: ROS 프로그램을 실행시키기 위한 명령어
 
 - 매개 변수 및 remap을 설정하기 위한 태그로 구성됨
@@ -36,6 +36,6 @@
 
 - output: 파일의 출력을 print할 채널
 
-
+---
 
 >3. Package의 생성
