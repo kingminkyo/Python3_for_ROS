@@ -1,4 +1,4 @@
-## Topic: Publishers !
+ ## Topic: Publishers !
 ##### 즐거운 ROS공부 ^^;
 ---
 > ## ○ 공부할 내용
@@ -10,7 +10,7 @@
 > ## 1. Topic Publisher
 ---
 우선 아래 파이썬 스크립트를 살펴보자
-``` py
+```py
 #! /usr/bin/env python
 
 import rospy
@@ -27,6 +27,7 @@ while not rospy.is_shutdown():
     count.data += 1
     rate.sleep()
 ```
+
 - pub이라는 Publisher 변수를 만들고, 이 date를 1씩 무한히 증가하는 정수로 게시했다.
 - 이 코드가 로봇을 무언가 구동시켜주지는 않는다..
 - 여기서 이해해야 하는 점은 Topic은 하나의 파이프의 개념이고, Node는 Topic을 사용하여 다른 Node에게 정보를 발행(Publish)한다는 점이다.
@@ -44,7 +45,7 @@ $ rostopic echo /counter
 $ rostopic echo <topic_name> -n1
 ```
 - 이 명령을 통해 마지막 메시지만 받을 수 있다.
-- Data가 많아 불편할 수 있는 경우 사용
+- Data가 많아 불편할 수 있는 경우 사용 asdasdasdas
 
 
 > 팁
