@@ -10,7 +10,7 @@
 > ## 1. Topic Publisher
 ---
 우선 아래 파이썬 스크립트를 살펴보자
-```py
+``` py
 #! /usr/bin/env python
 
 import rospy

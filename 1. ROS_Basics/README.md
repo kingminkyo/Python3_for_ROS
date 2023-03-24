@@ -48,7 +48,7 @@
 - 이 작업 공간을 catkin이라 부른다.
 - catkin 작업 공간은 하드 디스크의 디렉토리로 ROS에서 사용할 수 있도록 본인의 ROS 패키지가 있어야 사용 가능하다.
 
-        catkin_ws % 캣킨의 표현
+        $ catkin_ws % 캣킨의 표현
 
 
 > catkin_ws 디렉토리에서 pkg 생성
@@ -60,15 +60,15 @@
 
 > pkg 확인 방법
 
-    rospack list % 전체 리스트 확인
-    rospack list | grep my_package % 내가 원하는 이름 필터링
-    roscd my_package % 내가 원하는 패키지 위치로 이동
+    $ rospack list % 전체 리스트 확인
+    $ rospack list | grep my_package % 내가 원하는 이름 필터링
+    $ roscd my_package % 내가 원하는 패키지 위치로 이동
 - 이렇게 하면 src 디렉토리를 포함한 패키지 구성 요소들이 생긴 것을 확인할 수 있다.
 
 > 팁
 - 새 패키지를 만들면 ROS가 이를 인식하지 못하는 경우가 있다. 
 
-        rospack profile
+        $ rospack profile
 
     - 따라서 위 명령어로 새로고침 필요
 
@@ -81,7 +81,7 @@
 - 여기서 주의할 점은 새 파일을 만들 때 IDE에서 만드는 방법과 쉘에서 touch 명령으로 만드는 방법이 있는데, 쉘에서 생성 시 실행 권한이 생기지 않으므로 chmod 명령을 써야 하는 번거로움이 있다.
 
 
-        chmod +x name_of_the_file.py 
+        $ chmod +x name_of_the_file.py 
 
 
 >   launch 파일 생성
@@ -89,9 +89,9 @@
 
 
 
-        roscd my_package
-        mkdir launch
-        touch launch/my_package_launch_file.launch
+        $ roscd my_package
+        $ mkdir launch
+        $ touch launch/my_package_launch_file.launch
 
 - 셸 작업 명령이며 이는 IDE에서도 실행 가능
 
@@ -100,14 +100,14 @@
 ---
 - ROS에서 만들어지는 일련의 프로그램이다.
 
-        rosnode list 
+        $ rosnode list 
     - 노드를 확인할 수 있는 명령
     - 이때 py 프로그램이 실행 중이 아니라면 노드 확인이 안 된다.
 
 >팁
 - 파이썬 스크립트 상단에 #! 선언을 누락하면 roslaunch 오류가 생김(스크립트 설정하는 주석이다.)
 
-        rosnode info <node_name>
+        $ rosnode info <node_name>
     실행 중인 노드 정보를 확인하는 명령어
 
 ---
@@ -116,16 +116,16 @@
 - 생성한 ROS 패키지를 동작시키기 위해, 패키지를 Complie해야한다.
 
 > 컴파일 방법
-- 전체 src 디렉토리를 컴파일하며, catkin_ws 디렉토리에서만 발생된다.
+- 전체 src 디렉토리를 컴파일하며, 'catkin_ws 디렉토리'에서만 발생된다.
 - ※ 다른 디렉토리에서 시도하면 작동하지 않음.
 
-        cd ~/catkin_ws
-        catkin_make
+        $ cd ~/catkin_ws
+        $ catkin_make
 
 - 컴파일 후 작업 공간(workspace)을 확보해야 한다.
 
 
-        catkin_make --only-pkg-with-deps <package_name>
+        $ catkin_make --only-pkg-with-dep <package_name>
     - 특정 패키지만 컴파일하는 명령
 
 
@@ -135,14 +135,14 @@
 
 -  파라미터 서버는 ROS에서 쓰이는 매개변수를 저장하는 디렉토리이다.
 
-        rosparam list
+        $ rosparam list
     - 파라미터 서버 확인 방법
 
-
-        rosparam get /camera/imager_rate
-        rosparam set /camera/imager_rate 4.0
-        rosparam get /camera/imager_rate
-
+```
+    $ rosparam get /camera/imager_rate
+    $ rosparam set /camera/imager_rate 4.0
+    $ rosparam get /camera/imager_rate
+```
     - imager_rate 파라미터 값을 4로 수정하고 확인하는 과정
 
 ---
@@ -152,11 +152,14 @@
 - ROS에 관련된 모든 작업을 위해서, roscore는 동작하고 있어야 한다.
 - roscore는 ROS 시스템을 관리하는 메인 프로세스이다.
 - 명령어는 'roscore' 간단!
-
+- roslaunch 사용 시 --wait ㅎ 자동으로 roscore 시작됨
 ---
 > ### 9. 환경변수 (Environment Variables)
 ---
-
+- 환경변수란
+    - 프로세스가 컴퓨터에서 동작하는 방식에 영향을 미치는 동적인 값들의 모임
+    - OS에서 자식 프로세스들을 생성할 때 참조하는 '변수들'
+    - 이때 작업 프로세스는 컴퓨터로 띄우는 대부분의 프로그램들을 의미하며 이는 OS라는 프로그램에 의해 실행되는 자식 프로세스들이다. OS 입장에서 자식 프로세스들을 실행시킬 때 참조하는 변수의 의미.
 - ROS는 리눅스의 환경변수를 사용하여 제대로 작동한다.
 
         export | grep ROS
