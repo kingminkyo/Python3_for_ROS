@@ -45,7 +45,19 @@ $ rostopic echo /counter
 $ rostopic echo <topic_name> -n1
 ```
 - 이 명령을 통해 마지막 메시지만 받을 수 있다.
-- Data가 많아 불편할 수 있는 경우 사용 asdasdasdas
+- Data가 많아 불편할 수 있는 경우 사용 
+
+```
+user:~$ rostopic info /counter
+Type: std_msgs/Int32
+
+Publishers:
+ * /topic_publisher (http://2_xterm:45847/)
+
+Subscribers: None
+```
+- 위 코드에서 /counter 토픽의 메시지 타입을 Int32, 노드명을 /topic_publisher라고 해줬는데 이를 rostopic info 명령으로 확인 가능
+
 
 
 > 팁
@@ -57,7 +69,7 @@ $ rostopic echo <topic_name> -n1
 ---
 > ## Messages 란?
 ---
-- 위 사례에서 Topic을 통해 message를 발행했다.
+- 위 사례에서 Topic을 통해 message를 처리했다는 것을 볼 수 있다.
 - 위에서는 정수 타입(Int32) 메시지만 있었으나, 실제 ROS에서는 다양한 타입의 메시지를 발행한다.
 - 메시지는 .msg 파일로 정의되며 패키지 디렉토리 내부에 있다.
 
@@ -65,7 +77,76 @@ $ rostopic echo <topic_name> -n1
 $ rosmsg show <message>
 ```
 - 위 명령을 통해 메시지 정보를 볼 수 있다!
-
+```
+$ rosmsg show std_msgs/Int32
+int32 data
+```
+```
+user:/opt/ros/noetic/share/std_msgs/msg$ ls
+Bool.msg            Float32MultiArray.msg  Int64.msg                UInt16.msg
+Byte.msg            Float64.msg            Int64MultiArray.msg      UInt16MultiArray.msg
+ByteMultiArray.msg  Float64MultiArray.msg  Int8.msg                 UInt32.msg
+Char.msg            Header.msg             Int8MultiArray.msg       UInt32MultiArray.msg
+ColorRGBA.msg       Int16.msg              MultiArrayDimension.msg  UInt64.msg
+Duration.msg        Int16MultiArray.msg    MultiArrayLayout.msg     UInt64MultiArray.msg
+Empty.msg           Int32.msg              String.msg               UInt8.msg
+Float32.msg         Int32MultiArray.msg    Time.msg                 UInt8MultiArray.msg
+```
+- ROS에서는 다양한 메시지가 제공된다.
 ---
-cmd_vel에 대한 실습 내용 추가 예정
+> ## cmd_vel Topic 및 Twist msg 사용 실습
+---
+- cmd_vel이란 로봇을 이동하는데 사용되는 토픽이다.
 
+```
+user:~$ rostopic info /cmd_velType: geometry_msgs/Twist
+
+Publishers: None
+
+Subscribers:
+ * /gazebo (http://2_simulation:38221/)
+```
+
+- 여기서 cmd_vel은 메시지 타입으로 Twist를 사용하는 것을 볼 수 있는데, Twist의 정보를 보자
+
+```
+user:~$ rosmsg info geometry_msgs/Twist
+geometry_msgs/Vector3 linear
+  float64 x
+  float64 y
+  float64 z
+geometry_msgs/Vector3 angular
+  float64 x
+  float64 y
+  float64 z
+```
+- 여기서 실습에 사용할 로봇은 x축 직선운동, z축 각도운동을 한다고 가정한다.
+
+
+```
+# move_lobot.launch파일의 구성
+
+<launch>
+    <node pkg="exercise_31" type="move_robot.py" name="move_robot_node" output="screen" />
+</launch>
+```
+- 패키지명/스크립트/노드명/출력 형태로 구성된 launch 파일 복습
+
+```py
+#! /usr/bin/env python
+
+import rospy
+from geometry_msgs.msg import Twist
+
+rospy.init_node('move_robot_node')
+pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+rate = rospy.Rate(2)
+move = Twist()
+move.linear.x = 0.5 #Move the robot with a linear velocity in the x axis
+move.angular.z = 0.5 #Move the with an angular velocity in the z axis
+
+while not rospy.is_shutdown(): 
+  pub.publish(move)
+  rate.sleep()
+```
+- Twist msg에서 각 값의 이동 단위는 m/s이다
