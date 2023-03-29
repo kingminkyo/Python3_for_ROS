@@ -162,3 +162,11 @@ rospy.init_node('traj_by_name_node')
 my_service = rospy.Service('/trajectory_by_name', TrajByName , my_callback)# create the Service called my_service with the defined callback
 rospy.spin() # maintain the service open.
 ```
+※ 아직은 이해하기 어려운 단계.. 서비스 스크립트의 구조만 보자
+
+
+---
+
+
+
+
