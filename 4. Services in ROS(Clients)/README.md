@@ -134,7 +134,19 @@ $ cat start_service.launch
 ```
 - 분석 결과
 1. reproduce pkg의 start_service.launch를 실행하는 것을 확인
+---
+- reproduce pkg는 뭘까 보자
+
+
+
+
 2. traj_by_name.py 스크립트를 실행
+
+
+
+
+
+
 
 - 그렇다면 traj_by_name.py의 구조는?
 ```py
@@ -168,5 +180,5 @@ rospy.spin() # maintain the service open.
 ---
 
 
-
+```
 

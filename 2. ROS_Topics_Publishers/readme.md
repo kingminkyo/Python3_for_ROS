@@ -150,3 +150,4 @@ while not rospy.is_shutdown():
   rate.sleep()
 ```
 - Twist msg에서 각 값의 이동 단위는 m/s이다
+- 이 스크립트의 결과는 로봇이 원운동을 한다.
