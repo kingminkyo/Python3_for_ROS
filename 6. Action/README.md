@@ -69,3 +69,113 @@ sensor_msgs/CompressedImage lastImage  # the last image taken
 - feedback message는 어떻게 액션이 동작하는지 요청된 작업의 상태를 호출자에게 알리기 위해 주기적으로 만들어지는 메시지이다.
 
 
+---
+> ## Action Server python code 예시 분석
+
+---
+``` py
+#! /usr/bin/env python
+```
+- 스크립트 실행을 위한 셔뱅(shebang) 코드
+``` py
+import rospy
+import actionlib
+
+from actionlib_tutorials.msg import FibonacciFeedback, FibonacciResult, FibonacciAction
+```
+- ROS에서 기본 제공하는 actionlib_tutorials 패키지에서 액션 메시지인 Fibonacci.action을 불러옴
+```py
+class FibonacciClass(object):
+
+  _feedback = FibonacciFeedback()
+  _result   = FibonacciResult()
+
+```
+
+- feedback과 result를 발행하기 위한 메시지 객체 생성
+
+```py
+  def __init__(self):
+    self._as = actionlib.SimpleActionServer("fibonacci_as", FibonacciAction, self.goal_callback, False)
+    self._as.start()
+```
+
+- 생성자에서 fibonacci_as라 불리는 액션 서버 생성
+- 메시지로는 FibonacciAction 사용
+- goal_callback이라는 콜백함수 사용(함수 내용 하단 정의)
+
+
+
+```py
+
+  def goal_callback(self, goal):
+    r = rospy.Rate(1)
+    success = True
+
+    self._feedback.sequence = []
+    self._feedback.sequence.append(0)
+    self._feedback.sequence.append(1)
+    
+
+    rospy.loginfo('"fibonacci_as": Executing, creating fibonacci sequence of order %i with seeds %i, %i' % ( goal.order, self._feedback.sequence[0], self._feedback.sequence[1]))
+    
+    fibonacciOrder = goal.order
+```
+- 액션 서버가 호출되면 생성되는 콜백함수
+- 피보나치 계산을 수행하는 역할
+- 과정을 액션 서버 노드에 반환한다.
+
+- 이 구간에서 피보나치 시퀀스를 초기화하고, 앞으로 서버에서 계산할 데이터를 사용자에게 보여질 수 있도록 print함
+
+
+```py
+    for i in range(1, fibonacciOrder):
+      if self._as.is_preempt_requested():
+        rospy.loginfo('The goal has been cancelled/preempted')
+
+        self._as.set_preempted()
+        success = False
+        break
+
+```
+- action client에서 받은 값까지 계산하도록 loop 수행
+- goal이 중단되면 메시지 출력과 함께 loop 중단
+
+``` py
+      # builds the next feedback msg to be sent
+      self._feedback.sequence.append(self._feedback.sequence[i] + self._feedback.sequence[i-1])
+      # publish the feedback
+      self._as.publish_feedback(self._feedback)
+      # the sequence is computed at 1 Hz frequency
+      r.sleep()
+    
+
+```
+- 피보나치 계산 수행
+```py
+    # at this point, either the goal has been achieved (success==true)
+    # or the client preempted the goal (success==false)
+    # If success, then we publish the final result
+    # If not success, we do not publish anything in the result
+    if success:
+      self._result.sequence = self._feedback.sequence
+      rospy.loginfo('Succeeded calculating the Fibonacci of order %i' % fibonacciOrder )
+      self._as.set_succeeded(self._result)
+```
+- 계산이 성공적으로 마무리 되면 result에 계산한 값을 넣고 결과를 발행한다.
+
+
+```py
+if __name__ == '__main__':
+  rospy.init_node('fibonacci')
+  FibonacciClass()
+  rospy.spin()
+```
+- 메인 함수
+
+
+
+---
+> ## Action message 정의 시 
+---
+
