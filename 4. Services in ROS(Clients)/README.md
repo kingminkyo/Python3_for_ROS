@@ -101,7 +101,9 @@ $ rosservice call /the_service_name TAB-TAB
 
 - 여기서 TAB TAB은 Service message의 구조를 자동완성 시켜준다. 구조 내부에 값만 넣으면 된다.
 
+asd
 ---
+
 
 > 추가 실습
 1. roslaunch를 실행하고
