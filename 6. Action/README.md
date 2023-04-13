@@ -153,10 +153,7 @@ class FibonacciClass(object):
 ```
 - 피보나치 계산 수행
 ```py
-    # at this point, either the goal has been achieved (success==true)
-    # or the client preempted the goal (success==false)
-    # If success, then we publish the final result
-    # If not success, we do not publish anything in the result
+
     if success:
       self._result.sequence = self._feedback.sequence
       rospy.loginfo('Succeeded calculating the Fibonacci of order %i' % fibonacciOrder )
@@ -176,6 +173,74 @@ if __name__ == '__main__':
 
 
 ---
-> ## Action message 정의 시 
+> ## Action message 정의 시 CMakeLists.txt 수정 사항
 ---
+○ 패키지 내의 CMakeLists.txt에서 다음 4개 기능을 수정하여야 한다.
+
+1. find_package()
+```
+find_package(catkin REQUIRED COMPONENTS
+      # your packages are listed here
+      actionlib_msgs
+)
+```
+2. add_action_files() 
+```
+add_action_files(
+      FILES
+      Name.action
+)
+```
+3. generate_messages()
+```
+generate_messages(
+      DEPENDENCIES
+      actionlib_msgs 
+      # Your packages go here
+)
+```
+4. catkin_package()
+```
+catkin_package(
+      CATKIN_DEPENDS
+      rospy
+      # Your package dependencies go here
+)
+```
+
+
+---
+> package.xml 수정 사항
+- message를 컴파일하기 위한 모든 패키지에 대한 내용을 정의해야 한다.
+
+- .action 파일에서 다른 패키지에 정의된 메시지를 사용할 때 이 내용을 첨부해야 한다.
+- 예를 들어 nav_msgs/Odomoetry 메시지를 사용한다면 아래와 같이 정의한다.
+
+```
+<build_depend>nav_msgs<build_depend>
+```
+
+- 패키지 내 프로그램 실행을 위해 다른 패키지가 필요하다면, 다음과 같이 정의한다.
+
+```
+<build_export_depend>nav_msgs<build_export_depend>
+<exec_depend>nav_msgs<exec_depend>
+```
+- 자체 액션 메시지를 만드는 경우 다음 내용을 정의한다.
+
+```
+<build_depend>actionlib_msgs</build_depend>
+```
+- 파이썬을 스크립트로 사용하는 경우 다음 내용을 정의한다.
+```
+<build_export_depend>rospy<build_export_depend>
+<exec_depend>rospy<exec_depend>
+```
+
+- 위와 같은 수정이 끝난 후 아래와 같은 명령어를 사용하여 빌드해줘야 한다.
+
+```
+$ catkin_make
+$ source devel/setup.bash
+```
 
