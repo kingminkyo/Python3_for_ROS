@@ -1,50 +1,66 @@
-``` py
+```
 #!/usr/bin/env python
 
 import rospy
-from geometry_msgs.msg import Twist
+from std_msgs.msg import Int16
 
-class MoveBB8():
-    
-    def __init__(self):
-        self.bb8_vel_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-        self.cmd = Twist()
-        self.ctrl_c = False
-        self.rate = rospy.Rate(10) # 10hz
-        rospy.on_shutdown(self.shutdownhook)
-        
-    def publish_once_in_cmd_vel(self):
-        """
-        This is because publishing in topics sometimes fails the first time you publish.
-        In continuous publishing systems, this is no big deal, but in systems that publish only
-        once, it IS very important.
-        """
-        while not self.ctrl_c:
-            connections = self.bb8_vel_publisher.get_num_connections()
-            if connections > 0:
-                self.bb8_vel_publisher.publish(self.cmd)
-                rospy.loginfo("Cmd Published")
-                break
-            else:
-                self.rate.sleep()
-        
-    def shutdownhook(self):
-        # works better than the rospy.is_shutdown()
-        self.ctrl_c = True
+def motor():
+    rospy.init_node('motor', anonymous=True)
+    pub = rospy.Publisher('xycar_motor', Int16, queue_size=10)
 
-    def move_bb8(self, linear_speed=0.2, angular_speed=0.2):
-        
-        self.cmd.linear.x = linear_speed
-        self.cmd.angular.z = angular_speed
-        
-        rospy.loginfo("Moving BB8!")
-        self.publish_once_in_cmd_vel()
-            
+    rate = rospy.Rate(10)
+    while not rospy.is_shutdown():
+        speed = 70
+        angle = 90
+        pub.publish(angle)
+        pub.publish(speed)
+        rate.sleep()
+
 if __name__ == '__main__':
-    rospy.init_node('move_bb8_test', anonymous=True)
-    movebb8_object = MoveBB8()
     try:
-        movebb8_object.move_bb8()
+        motor()
     except rospy.ROSInterruptException:
         pass
+
 ```
+Arduino 코드:
+
+c++
+Copy code
+#include <ros.h>
+#include <std_msgs/Int16.h>
+
+ros::NodeHandle  nh;
+int angle = 90, speed = 70;
+
+void motor_cb(const std_msgs::Int16& cmd_msg)
+{
+    if (cmd_msg.data < -50) cmd_msg.data = -50;
+    if (cmd_msg.data > 50) cmd_msg.data = 50;
+
+    if (cmd_msg.data <= 0) {
+        speed = 1000 + (cmd_msg.data * -20);
+        angle = 90;
+    } else {
+        speed = 70;
+        angle = 90 - (cmd_msg.data * 1.8);
+    }
+}
+
+ros::Subscriber<std_msgs::Int16> sub("xycar_motor", motor_cb);
+
+void setup()
+{
+    pinMode(2, OUTPUT);
+    nh.initNode();
+    nh.subscribe(sub);
+}
+
+void loop()
+{
+    digitalWrite(2, HIGH);
+    delayMicroseconds(speed);
+    digitalWrite(2, LOW);
+    delayMicroseconds(20000 - speed);
+    nh.spinOnce();
+}
