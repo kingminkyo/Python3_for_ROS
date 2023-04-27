@@ -1,66 +1,34 @@
-```
-#!/usr/bin/env python
+  CSI 8P 카메라를 사용하기 위해서는 해당 카메라를 지원하는 드라이버 및 노드를 사용해야합니다. 이를 위해 제조사에서 제공하는 설치 및 사용자 가이드를 참조하시거나, 해당 카메라를 지원하는 ROS 패키지를 찾아서 사용하시면 됩니다.
 
-import rospy
-from std_msgs.msg import Int16
 
-def motor():
-    rospy.init_node('motor', anonymous=True)
-    pub = rospy.Publisher('xycar_motor', Int16, queue_size=10)
+CSI 8P 카메라를 사용하여 자율주행 RC카의 차선 검출 프로세스는 다음과 같습니다.
 
-    rate = rospy.Rate(10)
-    while not rospy.is_shutdown():
-        speed = 70
-        angle = 90
-        pub.publish(angle)
-        pub.publish(speed)
-        rate.sleep()
+1. CSI 8P 카메라를 연결하고 드라이버를 설치합니다.
+2. ROS에서 CSI 8P 카메라를 사용하기 위해 해당 카메라를 지원하는 ROS 패키지를 설치합니다.
+3. 이미지를 캡처하기 위해 ROS 이미지 캡처 노드를 실행합니다.
+4. 이미지를 전처리하고 차선을 검출하는 ROS 노드를 실행합니다.
+5. 검출된 차선 정보를 이용하여 RC카의 운전을 제어하는 ROS 노드를 실행합니다.
 
-if __name__ == '__main__':
-    try:
-        motor()
-    except rospy.ROSInterruptException:
-        pass
+여기서는 3, 4, 5단계에 대해 좀 더 자세히 설명하겠습니다.
+
+3. ROS 이미지 캡처 노드 실행
+CSI 8P 카메라에서 이미지를 캡처하기 위해 ROS에서 제공하는 "cv_camera" 패키지를 이용하여 이미지를 캡처하는 노드를 실행합니다. 이 노드는 "cv_camera_node" 노드로, 다음과 같이 실행할 수 있습니다.
 
 ```
-Arduino 코드:
+rosrun cv_camera cv_camera_node
+```
 
-c++
-Copy code
-#include <ros.h>
-#include <std_msgs/Int16.h>
 
-ros::NodeHandle  nh;
-int angle = 90, speed = 70;
+이 명령어를 실행하면 카메라에서 이미지가 캡처되어 "/cv_camera/image_raw" 토픽으로 게시됩니다.
 
-void motor_cb(const std_msgs::Int16& cmd_msg)
-{
-    if (cmd_msg.data < -50) cmd_msg.data = -50;
-    if (cmd_msg.data > 50) cmd_msg.data = 50;
+4. 차선 검출 노드 실행
 
-    if (cmd_msg.data <= 0) {
-        speed = 1000 + (cmd_msg.data * -20);
-        angle = 90;
-    } else {
-        speed = 70;
-        angle = 90 - (cmd_msg.data * 1.8);
-    }
-}
 
-ros::Subscriber<std_msgs::Int16> sub("xycar_motor", motor_cb);
+캡처된 이미지를 이용하여 차선을 검출하는 ROS 노드를 실행합니다. 이를 위해 OpenCV와 같은 라이브러리를 이용하여 이미지를 전처리하고, 차선을 검출하는 알고리즘을 적용합니다. 예를 들어, "cv_bridge" 패키지를 이용하여 ROS 이미지 메시지와 OpenCV 이미지 사이를 변환할 수 있습니다.
+이 노드는 "/cv_camera/image_raw" 토픽을 구독하고, "/lane_detection"과 같은 새로운 토픽으로 검출된 차선 정보를 게시합니다.
 
-void setup()
-{
-    pinMode(2, OUTPUT);
-    nh.initNode();
-    nh.subscribe(sub);
-}
+5. RC카 제어 노드 실행
 
-void loop()
-{
-    digitalWrite(2, HIGH);
-    delayMicroseconds(speed);
-    digitalWrite(2, LOW);
-    delayMicroseconds(20000 - speed);
-    nh.spinOnce();
-}
+
+검출된 차선 정보를 이용하여 RC카를 제어하는 ROS 노드를 실행합니다. 이를 위해 PID 제어 및 모터 제어 알고리즘 등을 적용하여 RC카를 차선을 따라 이동하도록 합니다. 이 노드는 "/lane_detection" 토픽을 구독하고, RC카의 제어를 위한 "/cmd_vel"과 같은 새로운 토픽으로 제어 정보를 게시합니다.
+이와 같은 프로세스를 구현하면 CSI 8P 카메라를 이용하여 자율주행 RC카의 차선 검출을 수행할 수 있습니다.
