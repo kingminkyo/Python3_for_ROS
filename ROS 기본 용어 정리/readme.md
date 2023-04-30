@@ -1,9 +1,11 @@
 catkin_create_pkg <package_name> <package_dependecies>
 
+- package_dependecies에는 rospy나 roscpp
 
-rospack list
 rospack list | grep my_package
-roscd my_package 
+
+- my_package의 이름을 갖는 패키지의 리스트 나열
+
 
 
 ## ROS에서 dev와 devel은 각각 다음과 같은 의미를 가집니다.
